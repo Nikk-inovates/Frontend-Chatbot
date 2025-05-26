@@ -1,0 +1,16 @@
+react
+react-dom
+tailwindcss
+shadcn-ui
+classnames
+react-icons
+react-speech-kit
+lucide-react
+vite
+typescript
+@types/react
+@types/react-dom
+autoprefixer
+postcss
+eslint
+eslint-plugin-react
