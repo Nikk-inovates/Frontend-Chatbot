@@ -5,7 +5,7 @@ export interface Message {
   timestamp: number;
 }
 
-const BACKEND_URL = "http://ec2-54-175-50-51.compute-1.amazonaws.com:8000/ask-question/";
+const BACKEND_URL = "http://ec2-54-175-50-51.compute-1.amazonaws.com:8001";
 
 export async function sendMessage(text: string): Promise<Message> {
   try {
