@@ -5,17 +5,16 @@ export interface Message {
   timestamp: number;
 }
 
-// Updated backend endpoint
-const BACKEND_URL = 'http://51.20.5.14:8000/ask';
+const BACKEND_URL = "http://ec2-54-175-50-51.compute-1.amazonaws.com:8000/ask-question/";
 
 export async function sendMessage(text: string): Promise<Message> {
   try {
+    const formData = new FormData();
+    formData.append("question", text);
+
     const response = await fetch(BACKEND_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ question: text }),
+      body: formData,
     });
 
     if (!response.ok) {
@@ -26,12 +25,17 @@ export async function sendMessage(text: string): Promise<Message> {
 
     return {
       id: `bot-${Date.now()}`,
-      text: data?.response ?? 'No response received.',
+      text: data?.answer ?? 'No response received.',
       sender: 'bot',
       timestamp: Date.now(),
     };
   } catch (error) {
     console.error('API call failed:', error);
-    throw error;
+    return {
+      id: `bot-${Date.now()}`,
+      text: 'Error: Unable to reach server.',
+      sender: 'bot',
+      timestamp: Date.now(),
+    };
   }
 }
